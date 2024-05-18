@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+         #
+#    By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 19:30:59 by elilliu           #+#    #+#              #
-#    Updated: 2024/04/24 19:40:07 by elilliu          ###   ########.fr        #
+#    Updated: 2024/05/16 17:03:49 by elilliu@stu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ INCLUDE = include/philo.h
 
 SRCS_DIR = srcs
 
-SRCS = main.c
+SRCS = main.c utils.c
 
 OBJS_DIR = objs
 
-OBJS = ${addprefix ${OBJ_DIR}/, ${SRCS:.c=.o}}
+OBJS = ${addprefix ${OBJS_DIR}/, ${SRCS:.c=.o}}
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -29,7 +29,7 @@ ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c ${INCLUDE}
 		mkdir -p ${OBJS_DIR}
 		${CC} ${CFLAGS} -c $< -o $@ -g3
 
-${NAME}: ${OBJ} ${LIBFT_PATH}
+${NAME}: ${OBJS}
 		${CC} ${CFLAGS} ${OBJS} -o $@
 
 all: ${NAME}
