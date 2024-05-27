@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
+/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:32:27 by elilliu           #+#    #+#             */
-/*   Updated: 2024/05/16 17:07:21 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2024/05/27 20:13:22 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct s_philo
 
 int	    main(int ac, char **av);
 void    arg_error(void);
+void	digit_error(void);
+int		ft_isdigit(int c);
 long	ft_atoi(const char *nptr);
+int		verif_args(int ac, char **av);
 
 #endif
