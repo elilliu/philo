@@ -1,31 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2024/07/08 18:01:28 by elilliu          ###   ########.fr       */
+/*   Created: 2024/07/08 16:31:42 by elilliu           #+#    #+#             */
+/*   Updated: 2024/07/08 16:51:49 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	data_init(t_data *data, int ac, char **av)
+void	take_fork(int num)
 {
-	data->nb_of_philo = av[1];
-	data->time_to_die = (size_t)av[2];
-	data->time_to_eat = (size_t)av[3];
-	data->time_to_sleep = (size_t)av[4];
-	if (ac == 6)
-		data->nb_of_meals = av[5];
+	printf("timestamp %d has taken a fork\n", num);
 }
 
-int	main(int ac, char **av)
+void	eating(int num)
 {
-	t_data			data;
-	pthread_mutex_t	mutex;
+	printf("timestamp %d is eating\n", num);
+}
 
-	data_init(&data, ac, av);
+void	sleeping(int num)
+{
+	printf("timestamp %d is sleeping\n", num);
+}
+
+void	thinking(int num)
+{
+	printf("timestamp %d is thinking", num);
+}
+
+void	death(int num)
+{
+	printf("timestamp %d died\n", num);
 }
