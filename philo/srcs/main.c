@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2024/07/10 20:54:38 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/07/14 12:45:11 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@ void	*routine(void *structure)
 	printf("je suis le philosophe numero %d\n", philo.num);
 	pthread_mutex_unlock(&data->mutex);
 	return (NULL);
-}
-
-void	data_init(t_data *data, int ac, char **av)
-{
-	data->nb_of_philo = ft_atoi(av[1]);
-	data->time_to_die = (size_t)ft_atoi(av[2]);
-	data->time_to_eat = (size_t)ft_atoi(av[3]);
-	data->time_to_sleep = (size_t)ft_atoi(av[4]);
-	if (ac == 6)
-		data->nb_of_meals = ft_atoi(av[5]);
 }
 
 void	init_philo(t_data *data, int i)
