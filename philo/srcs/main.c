@@ -6,7 +6,7 @@
 /*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2024/07/14 12:45:11 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/12/19 18:43:30 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,15 @@ void	*routine(void *structure)
 
 	data = (t_data *)structure;
 	philo = data->philo[data->current];
-	if (pthread_mutex_lock(&data->mutex))
+	printf("creating thread for philo current: %d, philo.num: %d\n", data->current, data->philo[data->current].num);
+	if (pthread_mutex_lock(&data->write.mutex))
 	{
-		printf("error unlocking mutex\n");
+		printf("error locking mutex\n");
 		return (NULL);
 	}
 	printf("je suis le philosophe numero %d\n", philo.num);
-	pthread_mutex_unlock(&data->mutex);
+	pthread_mutex_unlock(&data->write.mutex);
 	return (NULL);
-}
-
-void	init_philo(t_data *data, int i)
-{
-	data->philo[i].num = i + 1;
-	data->current = i;
-	pthread_create(&data->philo[i].thread, NULL, routine, (void *)data);
-	usleep(1000);
 }
 
 int	main(int ac, char **av)
@@ -42,23 +35,19 @@ int	main(int ac, char **av)
 	t_data		data;
 	int			i;
 
+	if (verif_args(ac, av) == 0)
+		return (1);
 	data_init(&data, ac, av);
-	pthread_mutex_init(&data.mutex, NULL);
-	i = 0;
 	data.philo = malloc(sizeof(t_philo) * data.nb_of_philo);
 	if (!data.philo)
-		return (1);
-	while (i < data.nb_of_philo)
-	{
-		init_philo(&data, i);
-		i++;
-	}
+		return (free_data(&data), 1);
+	init_philo(&data);
 	i = 0;
 	while (i < data.nb_of_philo)
 	{
 		pthread_join(data.philo[i].thread, NULL);
 		i++;
 	}
-	pthread_mutex_destroy(&data.mutex);
+	free_data(&data);
 	return (0);
 }
