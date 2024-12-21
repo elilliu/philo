@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:46:04 by elilliu@stu       #+#    #+#             */
-/*   Updated: 2024/12/19 17:56:59 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/12/21 00:50:18 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_data(t_data *data)
 {
 	free(data->philo);
-	pthread_mutex_destroy(&data->write.mutex);
+	pthread_mutex_destroy(&data->write);
 }
 
 long	ft_pos_atoi(const char *nptr)

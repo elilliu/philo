@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 12:42:52 by elilliu           #+#    #+#             */
-/*   Updated: 2024/12/19 19:14:45 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/12/21 01:24:25 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,38 @@
 
 void	init_philo(t_philo *philo)
 {
-	t_philo	philo;
-
 	philo->prev = NULL;
 	philo->next = NULL;
 	philo->die = 0;
-	philo->num = 0;
-	philo->last_meal = NULL;
+	philo->num = 1;
+	philo->last_meal = (time_t) NULL;
 }
 
 void	init_philos(t_data *data)
 {
 	int		i;
-	t_philo	*current;
+	t_philo	*first;
+	t_philo	*tmp;
 
 	i = 0;
-	current = data->philo;
+	data->philo = malloc(sizeof(t_philo));
+	init_philo(data->philo);
+	first = data->philo;
 	while (i < data->nb_of_philo)
 	{
-		init_philo(current);
-		current = current->next;
+		if (data->philo->prev)
+			data->philo->num = data->philo->prev->num + 1;
+		if (i < data->nb_of_philo - 1)
+		{
+			data->philo->next = malloc(sizeof(t_philo));
+			init_philo(data->philo->next);
+			tmp = data->philo;
+			data->philo = data->philo->next;
+			data->philo->prev = tmp;
+		}
 		i++;
 	}
+	data->philo = first;
 }
 
 void	data_init(t_data *data, int ac, char **av)

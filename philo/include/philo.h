@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:32:27 by elilliu           #+#    #+#             */
-/*   Updated: 2024/12/19 19:01:31 by elilliu          ###   ########.fr       */
+/*   Updated: 2024/12/21 01:22:23 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 
 typedef struct s_philo
 {
-	t_philo			*prev;
+	struct s_philo	*prev;
 	pthread_t		thread;
 	int				num;
 	int				die;
 	time_t			last_meal;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	*right_fork;
-	t_philo			*next;
+	struct s_philo	*next;
 }				t_philo;
 
 typedef struct s_data
@@ -44,7 +44,8 @@ typedef struct s_data
 	pthread_mutex_t	mutex;
 }			t_data;
 
-void	init_philo(t_data *data);
+void	init_philos(t_data *data);
+void	init_philo(t_philo *philo);
 void	*routine(void *structure);
 void	take_fork(int num);
 void	eating(int num);
