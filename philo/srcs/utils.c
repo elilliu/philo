@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 16:46:04 by elilliu@stu       #+#    #+#             */
-/*   Updated: 2024/12/21 00:50:18 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/20 18:27:25 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_data(t_data *data)
 	pthread_mutex_destroy(&data->write);
 }
 
-long	ft_pos_atoi(const char *nptr)
+long	ft_atoi(const char *nptr)
 {
 	int		i;
 	long	nb;
@@ -33,4 +33,14 @@ long	ft_pos_atoi(const char *nptr)
 		i++;
 	}
 	return (nb);
+}
+
+long	elapsed_time(struct timeval start)
+{
+	struct timeval	current;
+	time_t			time;
+
+	gettimeofday(&current, NULL);
+	time = (current.tv_sec - start.tv_sec) * 1000000 + (current.tv_usec - start.tv_usec);
+	return (time / 1000);
 }

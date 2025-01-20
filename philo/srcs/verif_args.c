@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verif_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:34:11 by elilliu           #+#    #+#             */
-/*   Updated: 2024/12/19 17:57:58 by elilliu          ###   ########.fr       */
+/*   Updated: 2025/01/20 15:39:37 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	verif_args(int ac, char **av)
 				return (digit_error(), 0);
 			j++;
 		}
-		if (ft_pos_atoi(av[i]) == -1)
+		if (ft_atoi(av[i]) == -1)
 			return (long_error(), 0);
 		i++;
 	}
