@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:31:42 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/22 00:10:34 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/22 00:14:10 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,15 @@ int	ft_sleep(t_data *data, t_philo *philo)
 
 void	ft_think(t_data *data, t_philo *philo)
 {
-	if (!philo->thinking)
+	if (data->active)
 	{
-		philo->thinking = true;
-		pthread_mutex_lock(&data->write);
-		printf("[%ldms] %d is thinking\n", elapsed_time(data->start), philo->num);
-		pthread_mutex_unlock(&data->write);
+		if (!philo->thinking)
+		{
+			philo->thinking = true;
+			pthread_mutex_lock(&data->write);
+			printf("[%ldms] %d is thinking\n", elapsed_time(data->start), philo->num);
+			pthread_mutex_unlock(&data->write);
+		}
 	}
 }
 
