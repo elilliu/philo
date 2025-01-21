@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+         #
+#    By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 19:30:59 by elilliu           #+#    #+#              #
-#    Updated: 2024/12/19 17:46:59 by elilliu          ###   ########.fr        #
+#    Updated: 2025/01/21 23:28:18 by elilliu@stu      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ INCLUDE = include/philo.h
 
 SRCS_DIR = srcs
 
-SRCS = main.c utils.c data_init.c verif_args.c 
+SRCS = main.c utils.c data_init.c verif_args.c routine.c actions.c
 
 OBJS_DIR = objs
 

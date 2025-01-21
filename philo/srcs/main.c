@@ -6,22 +6,22 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/20 15:55:06 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/21 23:36:01 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	*routine(void *structure)
-{
-	t_data	*data;
+// void	*routine(void *structure)
+// {
+// 	t_data	*data;
 
-	data = (t_data *)structure;
-	pthread_mutex_lock(&data->write);
-	printf("je suis le philosophe numero %d\n", data->philo[data->current]->num);
-	pthread_mutex_unlock(&data->write);
-	return (NULL);
-}
+// 	data = (t_data *)structure;
+// 	pthread_mutex_lock(&data->write);
+// 	printf("je suis le philosophe numero %d\n", data->philo[data->current]->num);
+// 	pthread_mutex_unlock(&data->write);
+// 	return (NULL);
+// }
 
 int	main(int ac, char **av)
 {

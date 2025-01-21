@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 12:42:52 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/20 21:34:12 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/22 00:07:45 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,21 @@ void	init_philos(t_data *data)
 		data->philo[i] = malloc(sizeof(t_philo));
 		if (!data->philo[i])
 			return ;
-		data->philo[i]->alive = true;
+		// data->philo[i]->alive = true;
+		data->philo[i]->thinking = true;
 		data->philo[i]->num = i + 1;
 		data->philo[i]->meals = 0;
-		gettimeofday(&data->philo[i]->last_meal, NULL);
+		data->philo[i]->last_meal = data->start;
+		pthread_mutex_init(&data->philo[i]->left_fork.mutex, NULL);
 		data->philo[i]->left_fork.available = true;
 		if (i)
-		{
 			data->philo[i]->right_fork = &data->philo[i - 1]->left_fork;
-			printf("right fork available? %d\n", data->philo[i]->right_fork->available);
-		}
 		i++;
 	}
-	data->philo[0]->right_fork = &data->philo[i - 1]->left_fork;
+	if (i != 1)
+		data->philo[0]->right_fork = &data->philo[i - 1]->left_fork;
+	else
+		data->philo[0]->right_fork = NULL;
 	data->philo[i] = NULL;
 }
 
@@ -46,6 +48,9 @@ void	data_init(t_data *data, int ac, char **av)
 	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		data->nb_of_meals = ft_atoi(av[5]);
+	else
+		data->nb_of_meals = -1;
+	data->active = true;
 	gettimeofday(&data->start, NULL);
 	pthread_mutex_init(&data->mutex, NULL);
 	pthread_mutex_init(&data->write, NULL);
