@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:31:42 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/22 00:14:10 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/22 18:19:33 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	take_forks(t_data *data, t_philo *philo)
 	philo->right_fork->available = false;
 	pthread_mutex_unlock(&philo->right_fork->mutex);
 	pthread_mutex_lock(&data->write);
-	printf("[%ldms] %d has taken his left fork\n", elapsed_time(data->start), philo->num);
-	printf("[%ldms] %d has taken his right fork\n", elapsed_time(data->start), philo->num);
+	printf("%ldms %d has taken his left fork\n", elapsed_time(data->start), philo->num);
+	printf("%ldms %d has taken his right fork\n", elapsed_time(data->start), philo->num);
 	pthread_mutex_unlock(&data->write);
 }
 
@@ -65,7 +65,7 @@ int	ft_eat(t_data *data, t_philo *philo)
 		take_forks(data, philo);
 		gettimeofday(&philo->last_meal, NULL);
 		pthread_mutex_lock(&data->write);
-		printf("[%ldms] %d is eating\n", elapsed_time(data->start), philo->num);
+		printf("%ldms %d is eating\n", elapsed_time(data->start), philo->num);
 		pthread_mutex_unlock(&data->write);
 		if (data->time_to_eat > data->time_to_die)
 		{
@@ -85,7 +85,7 @@ int	ft_sleep(t_data *data, t_philo *philo)
 	if (data->active)
 	{
 		pthread_mutex_lock(&data->write);
-		printf("[%ldms] %d is sleeping\n", elapsed_time(data->start), philo->num);
+		printf("%ldms %d is sleeping\n", elapsed_time(data->start), philo->num);
 		pthread_mutex_unlock(&data->write);
 		if ((data->time_to_eat + data->time_to_sleep) > data->time_to_die)
 		{
@@ -105,7 +105,7 @@ void	ft_think(t_data *data, t_philo *philo)
 		{
 			philo->thinking = true;
 			pthread_mutex_lock(&data->write);
-			printf("[%ldms] %d is thinking\n", elapsed_time(data->start), philo->num);
+			printf("%ldms %d is thinking\n", elapsed_time(data->start), philo->num);
 			pthread_mutex_unlock(&data->write);
 		}
 	}
@@ -113,9 +113,12 @@ void	ft_think(t_data *data, t_philo *philo)
 
 void	ft_die(t_data *data, t_philo *philo)
 {
+	if (data->active)
+	{
+		pthread_mutex_lock(&data->write);
+		printf("%ldms %d has died\n", elapsed_time(data->start), philo->num);
+		pthread_mutex_unlock(&data->write);
+	}
 	data->active = false;
 	pthread_mutex_unlock(&data->mutex);
-	pthread_mutex_lock(&data->write);
-	printf("[%ldms] %d has died\n", elapsed_time(data->start), philo->num);
-	pthread_mutex_unlock(&data->write);
 }

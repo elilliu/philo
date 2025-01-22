@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/21 23:36:01 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/22 19:08:43 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int ac, char **av)
 	{
 		data.current = i;
 		pthread_create(&data.philo[i]->thread, NULL, routine, &data);
-		usleep(100);
+		usleep(200);
 		i++;
 	}
 	i = 0;
@@ -49,6 +49,7 @@ int	main(int ac, char **av)
 		pthread_join(data.philo[i]->thread, NULL);
 		i++;
 	}
+	printf("%ldms Simulation is over\n", elapsed_time(data.start));
 	free_data(&data);
 	return (0);
 }

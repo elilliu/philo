@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:32:27 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/21 23:23:47 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/22 19:07:42 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_philo
 {
 	pthread_t		thread;
 	int				num;
-	// bool			alive;
 	bool			thinking;
 	int				meals;
 	struct timeval	last_meal;
