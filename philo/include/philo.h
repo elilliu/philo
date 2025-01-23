@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
+/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:32:27 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/22 19:07:42 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/23 16:26:52 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	long_error(void);
 void	digit_error(void);
 void	arg_error(void);
 long	elapsed_time(struct timeval start);
+int		has_prio(t_data *data, t_philo *philo);
 
 #endif

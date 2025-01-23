@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
+/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/22 19:08:43 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/23 18:48:03 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-// void	*routine(void *structure)
-// {
-// 	t_data	*data;
-
-// 	data = (t_data *)structure;
-// 	pthread_mutex_lock(&data->write);
-// 	printf("je suis le philosophe numero %d\n", data->philo[data->current]->num);
-// 	pthread_mutex_unlock(&data->write);
-// 	return (NULL);
-// }
 
 int	main(int ac, char **av)
 {
@@ -38,9 +27,11 @@ int	main(int ac, char **av)
 	i = 0;
 	while (data.philo[i])
 	{
+		pthread_mutex_lock(&data.mutex);
 		data.current = i;
+		pthread_mutex_unlock(&data.mutex);
 		pthread_create(&data.philo[i]->thread, NULL, routine, &data);
-		usleep(200);
+		usleep(500);
 		i++;
 	}
 	i = 0;
@@ -49,7 +40,13 @@ int	main(int ac, char **av)
 		pthread_join(data.philo[i]->thread, NULL);
 		i++;
 	}
-	printf("%ldms Simulation is over\n", elapsed_time(data.start));
+	// i = 0;
+	// while (data.philo[i])
+	// {
+	// 	printf("%d has eaten %d meals\n", data.philo[i]->num, data.philo[i]->meals);
+	// 	i++;
+	// }
+	// printf("%ldms Simulation is over\n", elapsed_time(data.start));
 	free_data(&data);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
+/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 12:42:52 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/22 00:07:45 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/23 18:51:13 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	init_philos(t_data *data)
 		data->philo[i]->meals = 0;
 		data->philo[i]->last_meal = data->start;
 		pthread_mutex_init(&data->philo[i]->left_fork.mutex, NULL);
+		pthread_mutex_lock(&data->philo[i]->left_fork.mutex);
 		data->philo[i]->left_fork.available = true;
+		pthread_mutex_unlock(&data->philo[i]->left_fork.mutex);
 		if (i)
 			data->philo[i]->right_fork = &data->philo[i - 1]->left_fork;
 		i++;

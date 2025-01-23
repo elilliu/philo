@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
+/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:31:42 by elilliu           #+#    #+#             */
-/*   Updated: 2025/01/22 18:19:33 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/01/23 17:52:41 by elilliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,24 @@ void	take_forks(t_data *data, t_philo *philo)
 	philo->right_fork->available = false;
 	pthread_mutex_unlock(&philo->right_fork->mutex);
 	pthread_mutex_lock(&data->write);
-	printf("%ldms %d has taken his left fork\n", elapsed_time(data->start), philo->num);
-	printf("%ldms %d has taken his right fork\n", elapsed_time(data->start), philo->num);
+	printf("%ld %d has taken his left fork\n",
+		elapsed_time(data->start), philo->num);
+	printf("%ld %d has taken his right fork\n",
+		elapsed_time(data->start), philo->num);
 	pthread_mutex_unlock(&data->write);
 }
 
 int	ft_eat(t_data *data, t_philo *philo)
 {
-	// printf("ICI\n");
+	pthread_mutex_lock(&data->mutex);
 	if (data->active)
 	{
+		pthread_mutex_unlock(&data->mutex);
 		philo->thinking = false;
 		take_forks(data, philo);
 		gettimeofday(&philo->last_meal, NULL);
 		pthread_mutex_lock(&data->write);
-		printf("%ldms %d is eating\n", elapsed_time(data->start), philo->num);
+		printf("%ld %d is eating\n", elapsed_time(data->start), philo->num);
 		pthread_mutex_unlock(&data->write);
 		if (data->time_to_eat > data->time_to_die)
 		{
@@ -77,15 +80,19 @@ int	ft_eat(t_data *data, t_philo *philo)
 		verif_meals(data);
 		put_forks(philo);
 	}
+	else
+		pthread_mutex_unlock(&data->mutex);
 	return (1);
 }
 
 int	ft_sleep(t_data *data, t_philo *philo)
 {
+	pthread_mutex_lock(&data->mutex);
 	if (data->active)
 	{
+		pthread_mutex_unlock(&data->mutex);
 		pthread_mutex_lock(&data->write);
-		printf("%ldms %d is sleeping\n", elapsed_time(data->start), philo->num);
+		printf("%ld %d is sleeping\n", elapsed_time(data->start), philo->num);
 		pthread_mutex_unlock(&data->write);
 		if ((data->time_to_eat + data->time_to_sleep) > data->time_to_die)
 		{
@@ -94,21 +101,27 @@ int	ft_sleep(t_data *data, t_philo *philo)
 		}
 		usleep(data->time_to_sleep * 1000);
 	}
+	else
+		pthread_mutex_unlock(&data->mutex);
 	return (1);
 }
 
 void	ft_think(t_data *data, t_philo *philo)
 {
+	pthread_mutex_lock(&data->mutex);
 	if (data->active)
 	{
+		pthread_mutex_unlock(&data->mutex);
 		if (!philo->thinking)
 		{
 			philo->thinking = true;
 			pthread_mutex_lock(&data->write);
-			printf("%ldms %d is thinking\n", elapsed_time(data->start), philo->num);
+			printf("%ld %d is thinking\n", elapsed_time(data->start), philo->num);
 			pthread_mutex_unlock(&data->write);
 		}
 	}
+	else
+		pthread_mutex_unlock(&data->mutex);
 }
 
 void	ft_die(t_data *data, t_philo *philo)
@@ -116,7 +129,7 @@ void	ft_die(t_data *data, t_philo *philo)
 	if (data->active)
 	{
 		pthread_mutex_lock(&data->write);
-		printf("%ldms %d has died\n", elapsed_time(data->start), philo->num);
+		printf("%ld %d has died\n", elapsed_time(data->start), philo->num);
 		pthread_mutex_unlock(&data->write);
 	}
 	data->active = false;
