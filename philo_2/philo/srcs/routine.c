@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:38:24 by elilliu           #+#    #+#             */
-/*   Updated: 2025/03/03 17:32:06 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/03/03 19:12:55 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,22 @@ void	*routine(void *structure)
 	data = (t_data *)structure;
 	// pthread_mutex_lock(&data->mutex);
 	philo = data->philo[data->current];
+	// while (!data->active)
+	// {
+	// 	pthread_mutex_unlock(&data->mutex);
+	// 	usleep(200);
+	// 	pthread_mutex_lock(&data->mutex);
+	// }
+	// // pthread_mutex_lock(&data->mutex);
+	// while (data->current != philo->num)
+	// {
+	// 	pthread_mutex_unlock(&data->mutex);
+	// 	usleep(200);
+	// 	pthread_mutex_lock(&data->mutex);
+	// }
 	printf("%ld %d is awake\n", elapsed_time(data->start), philo->num);
+	// data->current++;
 	gettimeofday(&philo->last_meal, NULL);
-	while (!data->active)
-		;
 	while (data->active)
 		philo_routine(data, philo);
 	pthread_mutex_unlock(&data->mutex);

@@ -6,7 +6,7 @@
 /*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2025/03/03 17:23:21 by elilliu@stu      ###   ########.fr       */
+/*   Updated: 2025/03/03 19:12:30 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,6 @@ int	join_threads(t_data *data)
 	return (1);
 }
 
-// void	set_start_time(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (data->philo[i])
-// 	{
-// 		data->philo[i]->last_meal = data->start;
-// 		i++;
-// 	}
-// }
-
 int	main(int ac, char **av)
 {
 	t_data		data;
@@ -71,11 +59,11 @@ int	main(int ac, char **av)
 			return (1);
 		i++;
 	}
-	// pthread_mutex_lock(&data.mutex);
-	// // gettimeofday(&data.start, NULL);
-	// // set_start_time(&data);
+	pthread_mutex_lock(&data.mutex);
+	// data.current = 1;
+	gettimeofday(&data.start, NULL);
 	// data.active = true;
-	// pthread_mutex_unlock(&data.mutex);
+	pthread_mutex_unlock(&data.mutex);
 	if (!join_threads(&data))
 		return (1);
 	free_all(&data, data.nb_of_philo);
