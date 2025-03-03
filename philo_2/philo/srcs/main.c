@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 19:40:15 by elilliu           #+#    #+#             */
-/*   Updated: 2025/02/28 19:48:42 by elilliu          ###   ########.fr       */
+/*   Updated: 2025/03/03 17:23:21 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ int	create_philo(t_data *data, int i)
 {
 	pthread_mutex_lock(&data->mutex);
 	data->current = i;
-	pthread_mutex_unlock(&data->mutex);
+	// pthread_mutex_unlock(&data->mutex);
 	if (pthread_create(&data->philo[i]->thread, NULL, routine, data))
 		return (pthread_create_error(), free_all(data, data->nb_of_philo), 0);
+	// usleep(200);
 	return (1);
 }
 
@@ -36,17 +37,17 @@ int	join_threads(t_data *data)
 	return (1);
 }
 
-void	set_start_time(t_data *data)
-{
-	int	i;
+// void	set_start_time(t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	while (data->philo[i])
-	{
-		data->philo[i]->last_meal = data->start;
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (data->philo[i])
+// 	{
+// 		data->philo[i]->last_meal = data->start;
+// 		i++;
+// 	}
+// }
 
 int	main(int ac, char **av)
 {
@@ -62,6 +63,7 @@ int	main(int ac, char **av)
 		return (malloc_error(), free_data(&data), 1);
 	if (!init_philos(&data))
 		return (1);
+	gettimeofday(&data.start, NULL);
 	i = 0;
 	while (data.philo[i])
 	{
@@ -69,11 +71,11 @@ int	main(int ac, char **av)
 			return (1);
 		i++;
 	}
-	pthread_mutex_lock(&data.mutex);
-	gettimeofday(&data.start, NULL);
-	set_start_time(&data);
-	data.active = true;
-	pthread_mutex_unlock(&data.mutex);
+	// pthread_mutex_lock(&data.mutex);
+	// // gettimeofday(&data.start, NULL);
+	// // set_start_time(&data);
+	// data.active = true;
+	// pthread_mutex_unlock(&data.mutex);
 	if (!join_threads(&data))
 		return (1);
 	free_all(&data, data.nb_of_philo);

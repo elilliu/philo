@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   has_prio.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 15:05:32 by elilliu           #+#    #+#             */
-/*   Updated: 2025/02/11 14:37:29 by elilliu          ###   ########.fr       */
+/*   Updated: 2025/03/03 17:19:14 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	has_prio(t_data *data, t_philo *philo)
 	t_philo	*prev;
 	t_philo	*next;
 
+	if (philo->meals == 0)
+		return (1);
 	i = philo->num;
 	if (i != 1)
 		prev = data->philo[i - 2];

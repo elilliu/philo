@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: elilliu <elilliu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: elilliu@student.42.fr <elilliu>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 12:42:52 by elilliu           #+#    #+#             */
-/*   Updated: 2025/02/28 19:42:47 by elilliu          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:39:42 by elilliu@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	data_init(t_data *data, int ac, char **av)
 		data->nb_of_meals = ft_atoi(av[5]);
 	else
 		data->nb_of_meals = -1;
-	data->active = false;
+	data->active = true;
 	if (pthread_mutex_init(&data->mutex, NULL)
 		|| pthread_mutex_init(&data->write, NULL))
 		return (mutex_init_error(), 0);
